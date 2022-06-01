@@ -23,6 +23,11 @@ class CustomAppMenu extends StatelessWidget {
             color: Colors.black,
             onPressed: () => Navigator.pushNamed(context, 'provider'),
           ),
+          CustomFlatButton(
+            text: 'Adomi Pedido',
+            color: Colors.black,
+            onPressed: () => Navigator.pushNamed(context, 'pedido'),
+          ),
           const SizedBox(width: 10),
           CustomFlatButton(
             text: 'Otra pagina',

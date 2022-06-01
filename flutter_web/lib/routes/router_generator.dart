@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_web/ui/pages/404_page.dart';
+import 'package:flutter_web/ui/pages/adomi_pedido_page.dart';
 import 'package:flutter_web/ui/pages/counter_page.dart';
 
 import '../ui/pages/counter_provider_page.dart';
@@ -20,6 +21,9 @@ class RouterGenerator {
       //  settings: const RouteSettings(name: 'provider'),
       //  builder: (_) => const CounterProviderPage(),
       //);
+
+      case 'pedido':
+        return _fadeRoute(const AdomiPedidoPage(), 'pedido');
 
       default:
         return _fadeRoute(const Page404(), '404');
