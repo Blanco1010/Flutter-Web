@@ -1,47 +1,43 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_web/ui/pages/404_page.dart';
+import 'package:flutter/cupertino.dart';
+
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter_web/ui/pages/adomi_pedido_page.dart';
-import 'package:flutter_web/ui/pages/counter_page.dart';
 
-import '../ui/pages/counter_provider_page.dart';
+import '../ui/views/counter_provider_view.dart';
+import '../ui/views/counter_view.dart';
+import '../ui/views/view_404.dart';
 
-class RouterGenerator {
-  static Route<dynamic> generateRoute(RouteSettings routeSettings) {
-    switch (routeSettings.name) {
-      case 'stateful':
-        return _fadeRoute(const CounterPage(), 'stateful');
-      //return MaterialPageRoute(
-      //  settings: const RouteSettings(name: 'stateful'),
-      //  builder: (_) => const CounterPage(),
-      //);
+class RouteGenerator {
+  static Route<dynamic> generateRoute(RouteSettings settings) {
+    switch (settings.name) {
+      case '/stateful':
+        return _fadeRoute(const CounterView(), '/stateful');
 
-      case 'provider':
-        return _fadeRoute(const CounterProviderPage(), 'provider');
-      //return MaterialPageRoute(
-      //  settings: const RouteSettings(name: 'provider'),
-      //  builder: (_) => const CounterProviderPage(),
-      //);
+      case '/provider':
+        return _fadeRoute(const CounterProviderView(), '/provider');
 
-      case 'pedido':
-        return _fadeRoute(const AdomiPedidoPage(), 'pedido');
+      case '/adomi':
+        return _fadeRoute(const AdomiPedidoPage(), '/adomi');
 
       default:
-        return _fadeRoute(const Page404(), '404');
-      //return MaterialPageRoute(
-      //  settings: const RouteSettings(name: '404'),
-      //  builder: (_) => const Page404(),
-      //);
+        return _fadeRoute(const View404(), '/404');
     }
   }
 
-  static PageRoute _fadeRoute(Widget widget, String routerName) {
+  static PageRoute _fadeRoute(Widget child, String routeName) {
     return PageRouteBuilder(
-        settings: RouteSettings(name: routerName),
-        pageBuilder: (_, __, ___) => widget,
-        transitionsBuilder: (_, animation, __, ___) => widget);
-    //FadeTransition(
-    //      opacity: animation,
-    //      child: widget,
-    //    ));
+        settings: RouteSettings(name: routeName),
+        pageBuilder: (_, __, ___) => child,
+        transitionDuration: const Duration(milliseconds: 200),
+        transitionsBuilder: (_, animation, __, ___) => (kIsWeb)
+            ? FadeTransition(
+                opacity: animation,
+                child: child,
+              )
+            : CupertinoPageTransition(
+                primaryRouteAnimation: animation,
+                secondaryRouteAnimation: __,
+                child: child,
+                linearTransition: true));
   }
 }

@@ -33,9 +33,9 @@ class _CounterPageState extends State<CounterPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const CustomAppMenu(),
+            CustomAppMenu(),
             const Spacer(),
-            const Text('Contador Stateful', style: TextStyle(fontSize: 20)),
+            const Text('Contador Stateful...', style: TextStyle(fontSize: 20)),
             FittedBox(
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10),

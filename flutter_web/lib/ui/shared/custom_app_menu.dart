@@ -1,39 +1,89 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_web/ui/shared/custom_flat_button.dart';
+
+import '../../locator.dart';
+import '../../services/navigation_service.dart';
+import 'custom_flat_button.dart';
 
 class CustomAppMenu extends StatelessWidget {
   const CustomAppMenu({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    return LayoutBuilder(
+        builder: (_, constraints) =>
+            (constraints.maxWidth > 520) ? _TableDesktopMenu() : _MobileMenu());
+  }
+}
+
+class _TableDesktopMenu extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 20),
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       width: double.infinity,
-      height: 50,
       child: Row(
         children: [
           CustomFlatButton(
             text: 'Contador Stateful',
+            // onPressed: () => Navigator.pushNamed(context, '/stateful'),
+            onPressed: () =>
+                locator<NavigationService>().navigateTo('/stateful'),
             color: Colors.black,
-            onPressed: () => Navigator.pushNamed(context, 'stateful'),
           ),
           const SizedBox(width: 10),
           CustomFlatButton(
             text: 'Contador Provider',
+            onPressed: () =>
+                locator<NavigationService>().navigateTo('/provider'),
             color: Colors.black,
-            onPressed: () => Navigator.pushNamed(context, 'provider'),
-          ),
-          CustomFlatButton(
-            text: 'Adomi Pedido',
-            color: Colors.black,
-            onPressed: () => Navigator.pushNamed(context, 'pedido'),
           ),
           const SizedBox(width: 10),
           CustomFlatButton(
-            text: 'Otra pagina',
+            text: 'Adomi pedidos',
+            onPressed: () => locator<NavigationService>().navigateTo('/adomi'),
             color: Colors.black,
-            onPressed: () {},
-          )
+          ),
+          const SizedBox(width: 10),
+          CustomFlatButton(
+            text: 'Otra página',
+            onPressed: () => locator<NavigationService>().navigateTo('/abc123'),
+            color: Colors.black,
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _MobileMenu extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+      width: double.infinity,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          CustomFlatButton(
+            text: 'Contador Stateful',
+            // onPressed: () => Navigator.pushNamed(context, '/stateful'),
+            onPressed: () =>
+                locator<NavigationService>().navigateTo('/stateful'),
+            color: Colors.black,
+          ),
+          const SizedBox(width: 10),
+          CustomFlatButton(
+            text: 'Contador Provider',
+            onPressed: () =>
+                locator<NavigationService>().navigateTo('/provider'),
+            color: Colors.black,
+          ),
+          const SizedBox(width: 10),
+          CustomFlatButton(
+            text: 'Otra página',
+            onPressed: () => locator<NavigationService>().navigateTo('/abc123'),
+            color: Colors.black,
+          ),
         ],
       ),
     );
